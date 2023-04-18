@@ -218,8 +218,9 @@ GameObject:
   - component: {fileID: 1906790879}
   - component: {fileID: 1906790878}
   - component: {fileID: 1906790880}
+  - component: {fileID: 1906790881}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Grid_16x16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -268,6 +269,21 @@ MonoBehaviour:
   mainCamera: {fileID: 519420031}
   grid: {fileID: 1906790878}
   tilemap: {fileID: 2028990203}
+--- !u!114 &1906790881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1906790877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbfd67aea2b14294199a1712a0b3f104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  normalTile: {fileID: 11400000, guid: 81cd802fe8b9beb4590d2c42df973af7, type: 2}
+  visitedTile: {fileID: 11400000, guid: 0a94cd122759d9c4a9fe8329d29a1d03, type: 2}
+  delay: 0.03
 --- !u!1 &2028990200
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,7 +310,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2028990200}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.564, y: 0.186, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

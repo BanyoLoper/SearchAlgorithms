@@ -7,6 +7,13 @@ public class TileClickDetector : MonoBehaviour
     public Grid grid;
     public Tilemap tilemap;
 
+    private FloodFill _breathSearchFirst;
+    
+    private void Start()
+    {
+        _breathSearchFirst = GetComponent<FloodFill>();
+    }
+    
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -21,6 +28,11 @@ public class TileClickDetector : MonoBehaviour
             {
                 Debug.Log("Tile clicked: " + cellPosition + " World Position" + cellWorldPosition);
             }
+            
+            // Start FloodFill
+            _breathSearchFirst.Origin = cellPosition;
+            _breathSearchFirst.TileMap = tilemap;
+            StartCoroutine(_breathSearchFirst.FloodFill2D());
         }        
     }
 }
