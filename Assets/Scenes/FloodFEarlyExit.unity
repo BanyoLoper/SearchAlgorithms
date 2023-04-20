@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 675574812}
   - component: {fileID: 675574811}
   m_Layer: 0
-  m_Name: Water
+  m_Name: Water2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4015,7 +4015,7 @@ GameObject:
   - component: {fileID: 1158420178}
   - component: {fileID: 1158420179}
   m_Layer: 0
-  m_Name: Floor
+  m_Name: Floor2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6089,7 +6089,7 @@ GameObject:
   - component: {fileID: 1286238691}
   - component: {fileID: 1286238692}
   m_Layer: 0
-  m_Name: Floor
+  m_Name: Floor1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8013,7 +8013,7 @@ GameObject:
   - component: {fileID: 1765100603}
   - component: {fileID: 1765100602}
   m_Layer: 0
-  m_Name: Water
+  m_Name: Water1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
