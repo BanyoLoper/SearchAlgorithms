@@ -6,10 +6,11 @@ using UnityEngine.Tilemaps;
 public class FloodFill : MonoBehaviour
 {
     public Vector3 Origin { get; set; }
+    public Vector3 Goal { get; set; }
     public Tilemap TileMap { get; set; }
-
-    public TileBase normalTile;
+    
     public TileBase visitedTile;
+    public TileBase pathTile;
     public float delay = 0.2f;
     
     private Queue<Vector3> _frontier = new Queue<Vector3>();
@@ -34,8 +35,22 @@ public class FloodFill : MonoBehaviour
                 }
             }
         }
+        DrawPath(Goal);
     }
-    
+
+    public void DrawPath(Vector3 goal)
+    {
+        Vector3 current = goal;
+        while (current != Origin)
+        {
+            Vector3Int currentInt = new Vector3Int((int) current.x, (int) current.y, (int) current.z);
+            TileFlags flags = TileMap.GetTileFlags(currentInt);
+            TileMap.SetTile(currentInt, pathTile);
+            TileMap.SetTileFlags(currentInt, flags);
+            current = _cameFrom[current];
+        }
+    }
+
     private List<Vector3> GetNeighbors(Vector3 current)
     {
         List<Vector3> neighbours = new List<Vector3>();
@@ -58,7 +73,6 @@ public class FloodFill : MonoBehaviour
             neighbours.Add(neighbour);
             TileMap.SetTile(neighbourInt, visitedTile);
             TileMap.SetTileFlags(neighbourInt, flags);
-            Debug.Log("Visited: " + neighbourInt);
         }
     }
 }
