@@ -14,6 +14,7 @@ public class TileSelector : MonoBehaviour
     public Vector3 offset = new Vector3(0, 0.03f,0);
     public TileBase originTile;
     public TileBase goalTile;
+    public FloodFill floodFill;
     
     private Dictionary<Tilemap, Vector3Int> _previousTilePosition = new Dictionary<Tilemap, Vector3Int>();
     private Dictionary<Tilemap, Vector3Int> _origin = new Dictionary<Tilemap, Vector3Int>();
@@ -35,6 +36,7 @@ public class TileSelector : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0)) DetectTileClick(isOrigin:true);
         if (Input.GetMouseButtonDown(1)) DetectTileClick(isOrigin:false);
+        if (Input.GetKeyDown(KeyCode.Return)) StartFloodFill();
     }
 
     private void SelectTile(Tilemap subTilemap)
@@ -76,6 +78,26 @@ public class TileSelector : MonoBehaviour
                 selectedDictionary[tilemap] = clickedTile;
                 break;
             }
+        }
+    }
+    
+    private void StartFloodFill()
+    {
+        foreach (var tilemap in tilemaps)
+        {
+            if (_origin[tilemap].Equals(_goal[tilemap]))
+            {
+                Debug.Log("Origin or Goal not set");
+                return;
+            }
+            
+            // Start FloodFill
+            floodFill.Origin = _origin[tilemap];
+            floodFill.Goal = _goal[tilemap];
+            floodFill.TileMap = tilemap;
+            floodFill.visitedTile = originTile;
+            floodFill.pathTile = goalTile;
+            StartCoroutine(floodFill.FloodFill2D());
         }
     }
 }

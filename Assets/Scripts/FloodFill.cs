@@ -12,6 +12,7 @@ public class FloodFill : MonoBehaviour
     public TileBase visitedTile;
     public TileBase pathTile;
     public float delay = 0.2f;
+    public bool earlyExit = false;
     
     private Queue<Vector3> _frontier = new Queue<Vector3>();
     private Dictionary<Vector3, Vector3> _cameFrom = new Dictionary<Vector3, Vector3>();
@@ -25,6 +26,9 @@ public class FloodFill : MonoBehaviour
         while (_frontier.Count > 0)
         {
             Vector3 current = _frontier.Dequeue();
+            
+            if (earlyExit & current == Goal) break;
+            
             foreach (Vector3 next in GetNeighbors(current))
             {
                 if (!_cameFrom.ContainsKey(next))
@@ -38,7 +42,7 @@ public class FloodFill : MonoBehaviour
         DrawPath(Goal);
     }
 
-    public void DrawPath(Vector3 goal)
+    private void DrawPath(Vector3 goal)
     {
         Vector3 current = goal;
         while (current != Origin)

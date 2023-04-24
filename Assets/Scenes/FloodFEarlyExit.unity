@@ -207,57 +207,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &654369764
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 654369766}
-  - component: {fileID: 654369765}
-  m_Layer: 0
-  m_Name: TileManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &654369765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 654369764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4005fc7561e9c3e4d8cfee774e26c26e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 339997852}
-  tilemaps:
-  - {fileID: 1286238691}
-  - {fileID: 1158420178}
-  offset: {x: 0, y: 0.03, z: 0}
-  originTile: {fileID: 11400000, guid: d0815fb960e1d1240a25e6077de91039, type: 2}
-  goalTile: {fileID: 11400000, guid: 0a94cd122759d9c4a9fe8329d29a1d03, type: 2}
---- !u!4 &654369766
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 654369764}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &675574809
 GameObject:
   m_ObjectHideFlags: 0
@@ -3985,6 +3934,7 @@ GameObject:
   - component: {fileID: 828518554}
   - component: {fileID: 828518553}
   - component: {fileID: 828518551}
+  - component: {fileID: 828518555}
   m_Layer: 0
   m_Name: Grid_16x16_2
   m_TagString: Untagged
@@ -4007,6 +3957,7 @@ MonoBehaviour:
   visitedTile: {fileID: 11400000, guid: 0a94cd122759d9c4a9fe8329d29a1d03, type: 2}
   pathTile: {fileID: 11400000, guid: 81cd802fe8b9beb4590d2c42df973af7, type: 2}
   delay: 0.001
+  earlyExit: 0
 --- !u!156049354 &828518553
 Grid:
   m_ObjectHideFlags: 0
@@ -4036,6 +3987,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &828518555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 828518550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4005fc7561e9c3e4d8cfee774e26c26e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 339997852}
+  tilemaps:
+  - {fileID: 1158420178}
+  offset: {x: 0, y: 0.03, z: 0}
+  originTile: {fileID: 11400000, guid: 0a94cd122759d9c4a9fe8329d29a1d03, type: 2}
+  goalTile: {fileID: 11400000, guid: eea0460bc84e4414ab6688e05a4b6661, type: 2}
+  floodFill: {fileID: 828518551}
 --- !u!1 &1158420177
 GameObject:
   m_ObjectHideFlags: 0
@@ -11831,6 +11801,7 @@ GameObject:
   - component: {fileID: 1827412589}
   - component: {fileID: 1827412588}
   - component: {fileID: 1827412586}
+  - component: {fileID: 1827412590}
   m_Layer: 0
   m_Name: Grid_16x16_1
   m_TagString: Untagged
@@ -11853,6 +11824,7 @@ MonoBehaviour:
   visitedTile: {fileID: 11400000, guid: 0a94cd122759d9c4a9fe8329d29a1d03, type: 2}
   pathTile: {fileID: 11400000, guid: 81cd802fe8b9beb4590d2c42df973af7, type: 2}
   delay: 0.001
+  earlyExit: 1
 --- !u!156049354 &1827412588
 Grid:
   m_ObjectHideFlags: 0
@@ -11882,3 +11854,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1827412590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1827412585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4005fc7561e9c3e4d8cfee774e26c26e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 339997852}
+  tilemaps:
+  - {fileID: 1286238691}
+  offset: {x: 0, y: 0.03, z: 0}
+  originTile: {fileID: 11400000, guid: d0815fb960e1d1240a25e6077de91039, type: 2}
+  goalTile: {fileID: 11400000, guid: eea0460bc84e4414ab6688e05a4b6661, type: 2}
+  floodFill: {fileID: 1827412586}
