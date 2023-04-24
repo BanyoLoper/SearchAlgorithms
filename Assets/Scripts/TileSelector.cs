@@ -5,6 +5,8 @@ using Matrix4x4 = UnityEngine.Matrix4x4;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
+// Note: Set Custom Axis in Graphcs Settings > Transaprency Sort Mode to (0,1,-1)
+
 public class TileSelector : MonoBehaviour
 {
     public Camera mainCamera;
