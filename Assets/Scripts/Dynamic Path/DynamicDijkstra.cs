@@ -12,20 +12,12 @@ public class DynamicDijkstra : MonoBehaviour
     
     public TileBase pathTile;
     public bool earlyExit = false;
-    public TextMeshProUGUI costTextPrefab;
-    public Camera camera;
-    public Canvas canvas;
     public Tilemap pathTileMap;
     
     private PriorityQueue<Vector3> _frontier = new PriorityQueue<Vector3>();
     private Dictionary<Vector3, Vector3> _cameFrom = new Dictionary<Vector3, Vector3>();
     private Dictionary<Vector3, double> _costSoFar = new Dictionary<Vector3, double>();
-    private RectTransform _canvasRectTransform;
-
-    private void Start()
-    {
-        _canvasRectTransform = canvas.GetComponent<RectTransform>();
-    }
+    
 
     public void Dijkstra2D()
     {
@@ -37,7 +29,7 @@ public class DynamicDijkstra : MonoBehaviour
         {
             Vector3 current = _frontier.Dequeue();
             
-            if (earlyExit & current == Goal) break;
+            if (earlyExit && current == Goal) break;
             
             foreach (Vector3 next in GetNeighbors(current))
             {
@@ -65,20 +57,6 @@ public class DynamicDijkstra : MonoBehaviour
             "isometric_pixel_0062" => 2,
             _ => 1
         };
-
-        TextMeshProUGUI costInstance = Instantiate(costTextPrefab, canvas.transform, false);
-        costInstance.text = cost.ToString();
-
-        Vector3 tileWorldPos = TileMap.CellToWorld(new Vector3Int((int)next.x, (int)next.y, (int)next.z));
-        Vector3 viewportPos = camera.WorldToViewportPoint(tileWorldPos);
-        
-        var sizeDelta = _canvasRectTransform.sizeDelta;
-        Vector2 anchoredPosition = new Vector2(
-            ((sizeDelta.x * viewportPos.x) - (sizeDelta.x * 0.5f)),
-            ((sizeDelta.y * viewportPos.y) - (sizeDelta.y * 0.5f))
-        );
-    
-        costInstance.rectTransform.anchoredPosition = anchoredPosition;
         return cost;
     }
     
