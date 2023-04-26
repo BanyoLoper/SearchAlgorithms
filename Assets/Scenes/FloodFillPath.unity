@@ -16826,7 +16826,7 @@ MonoBehaviour:
   visitedTile: {fileID: 11400000, guid: 0a94cd122759d9c4a9fe8329d29a1d03, type: 2}
   pathTile: {fileID: 11400000, guid: 81cd802fe8b9beb4590d2c42df973af7, type: 2}
   delay: 0.001
-  earlyExit: 1
+  earlyExit: 0
 --- !u!114 &1906790882
 MonoBehaviour:
   m_ObjectHideFlags: 0

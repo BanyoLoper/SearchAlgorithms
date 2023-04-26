@@ -15,6 +15,15 @@ public class TileSelector : MonoBehaviour
     public TileBase originTile;
     public TileBase goalTile;
     public FloodFill floodFill;
+
+    public enum SearchAlgorithm
+    {
+        FloodFill,
+        Dijkstra,
+        AStar
+    }
+
+    public SearchAlgorithm selectedAlgorithm;
     
     private Dictionary<Tilemap, Vector3Int> _previousTilePosition = new Dictionary<Tilemap, Vector3Int>();
     private Dictionary<Tilemap, Vector3Int> _origin = new Dictionary<Tilemap, Vector3Int>();
@@ -36,7 +45,7 @@ public class TileSelector : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(0)) DetectTileClick(isOrigin:true);
         if (Input.GetMouseButtonDown(1)) DetectTileClick(isOrigin:false);
-        if (Input.GetKeyDown(KeyCode.Return)) StartFloodFill();
+        if (Input.GetKeyDown(KeyCode.Return)) StartAlgorithm();
     }
 
     private void SelectTile(Tilemap subTilemap)
@@ -80,16 +89,27 @@ public class TileSelector : MonoBehaviour
             }
         }
     }
+
+    private void StartAlgorithm()
+    {
+        switch (selectedAlgorithm)
+        {
+            case SearchAlgorithm.FloodFill:
+                StartFloodFill();
+                break;
+            case SearchAlgorithm.Dijkstra:
+                break;
+            case SearchAlgorithm.AStar:
+                break;
+        }
+    }
     
     private void StartFloodFill()
     {
+        // To do: Add FloodFill if do not exists
         foreach (var tilemap in tilemaps)
         {
-            if (_origin[tilemap].Equals(_goal[tilemap]))
-            {
-                Debug.Log("Origin or Goal not set");
-                return;
-            }
+            if (_origin[tilemap].Equals(_goal[tilemap])) return;
             
             // Start FloodFill
             floodFill.Origin = _origin[tilemap];
