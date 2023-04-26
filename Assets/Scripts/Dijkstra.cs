@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using ESarkis;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -15,6 +16,8 @@ public class Dijkstra : MonoBehaviour
     public TileBase pathTile;
     public float delay = 0.2f;
     public bool earlyExit = false;
+    public TextMeshProUGUI costTextPrefab;
+    public Camera camera;
     
     private PriorityQueue<Vector3> _frontier = new PriorityQueue<Vector3>();
     private Dictionary<Vector3, Vector3> _cameFrom = new Dictionary<Vector3, Vector3>();
@@ -36,7 +39,7 @@ public class Dijkstra : MonoBehaviour
             foreach (Vector3 next in GetNeighbors(current))
             {
                 var newCost = _costSoFar[current] + GetCost(next);
-                if (!_costSoFar.ContainsKey(next) | newCost < _costSoFar[next])
+                if (!_costSoFar.ContainsKey(next) || newCost < _costSoFar[next])
                 {
                     yield return new WaitForSeconds(delay);
                     _costSoFar[next] = newCost;
@@ -51,15 +54,27 @@ public class Dijkstra : MonoBehaviour
     private double GetCost(Vector3 next)
     {
         var nextTile = TileMap.GetTile(new Vector3Int((int) next.x, (int) next.y, (int) next.z));
-        return nextTile.name switch
+        double cost = nextTile.name switch
         {
-            "isometric_pixel_0055" => 5,
-            "isometric_pixel_0059" => 4,
+            "isometric_pixel_0055" => 50,
+            "isometric_pixel_0059" => 40,
             "isometric_pixel_0060" => 1,
-            "isometric_pixel_0061" => 2,
-            "isometric_pixel_0062" => 3,
+            "isometric_pixel_0061" => 5,
+            "isometric_pixel_0062" => 20,
             _ => 1
         };
+
+        TextMeshProUGUI costInstance = Instantiate(costTextPrefab);
+        costInstance.text = cost.ToString();
+
+        Vector3 tileWorldPos = TileMap.CellToWorld(new Vector3Int((int)next.x, (int)next.y, (int)next.z));
+        var cellSize = TileMap.cellSize;
+        Vector3 tileScreenPos = camera.WorldToScreenPoint(tileWorldPos + new Vector3(cellSize.x / 2, cellSize.y / 2, 0));
+        
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(costInstance.transform.parent.GetComponent<RectTransform>(), 
+            tileScreenPos, camera, out Vector2 localPoint);
+        costInstance.transform.localPosition = localPoint;
+        return cost;
     }
     
     private void DrawPath(Vector3 goal)
@@ -92,9 +107,7 @@ public class Dijkstra : MonoBehaviour
         if (!TileMap.HasTile(neighbourInt)) return;
         if (!_frontier.Contains(neighbour))
         {
-            
             neighbours.Add(neighbour);
-            TileMap.SetTile(neighbourInt, visitedTile);
         }
     }
 }
