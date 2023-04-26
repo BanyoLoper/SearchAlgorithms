@@ -15,6 +15,7 @@ public class TileSelector : MonoBehaviour
     public TileBase originTile;
     public TileBase goalTile;
     public FloodFill floodFill;
+    public Dijkstra dijkstra;
 
     public enum SearchAlgorithm
     {
@@ -98,6 +99,7 @@ public class TileSelector : MonoBehaviour
                 StartFloodFill();
                 break;
             case SearchAlgorithm.Dijkstra:
+                StartDijkstra();
                 break;
             case SearchAlgorithm.AStar:
                 break;
@@ -119,5 +121,20 @@ public class TileSelector : MonoBehaviour
             floodFill.pathTile = goalTile;
             StartCoroutine(floodFill.FloodFill2D());
         }
+    }
+    
+    private void StartDijkstra()
+    {
+        // To do: Add Dijkstra if do not exists
+        foreach (var tilemap in tilemaps)
+        {
+            if (_origin[tilemap].Equals(_goal[tilemap])) return;
+            dijkstra.Origin = _origin[tilemap];
+            dijkstra.Goal = _goal[tilemap];
+            dijkstra.TileMap = tilemap;
+            dijkstra.visitedTile = originTile;
+            dijkstra.pathTile = goalTile;
+            StartCoroutine(dijkstra.Dijkstra2D());
+        }   
     }
 }

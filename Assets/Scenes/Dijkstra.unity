@@ -10291,6 +10291,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2044729990}
   - component: {fileID: 2044729989}
+  - component: {fileID: 2044729992}
+  - component: {fileID: 2044729991}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -10326,3 +10328,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2044729991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044729988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e1553ac0a14304bb938cd13bcfc1c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  visitedTile: {fileID: 0}
+  pathTile: {fileID: 0}
+  delay: 0.2
+  earlyExit: 0
+--- !u!114 &2044729992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2044729988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4005fc7561e9c3e4d8cfee774e26c26e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 119565267}
+  tilemaps:
+  - {fileID: 717588531}
+  offset: {x: 0, y: 0.03, z: 0}
+  originTile: {fileID: 11400000, guid: e96d337533a3ee44cb105348632dbb69, type: 2}
+  goalTile: {fileID: 11400000, guid: aaa86ba099ef37542aad41513ca0428e, type: 2}
+  floodFill: {fileID: 0}
+  dijkstra: {fileID: 2044729991}
+  selectedAlgorithm: 1

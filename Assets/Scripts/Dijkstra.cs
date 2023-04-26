@@ -21,7 +21,7 @@ public class Dijkstra : MonoBehaviour
     private Dictionary<Vector3, double> _costSoFar = new Dictionary<Vector3, double>();
 
 
-    public IEnumerator FloodFill2D()
+    public IEnumerator Dijkstra2D()
     {
         _frontier.Enqueue(Origin,0);
         _cameFrom[Origin] = Vector3.zero;
@@ -36,7 +36,7 @@ public class Dijkstra : MonoBehaviour
             foreach (Vector3 next in GetNeighbors(current))
             {
                 var newCost = _costSoFar[current] + GetCost(next);
-                if (!_cameFrom.ContainsKey(next) | newCost < _costSoFar[next])
+                if (!_costSoFar.ContainsKey(next) | newCost < _costSoFar[next])
                 {
                     yield return new WaitForSeconds(delay);
                     _costSoFar[next] = newCost;
