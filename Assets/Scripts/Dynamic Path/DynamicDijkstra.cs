@@ -21,11 +21,18 @@ public class DynamicDijkstra : MonoBehaviour
 
     public void Dijkstra2D()
     {
+        _frontier.Clear();
+        _cameFrom.Clear();
+        _costSoFar.Clear();
+        
         _frontier.Enqueue(Origin,0);
         _cameFrom[Origin] = Vector3.zero;
         _costSoFar[Origin] = 0;
         
-        while (_frontier.Count > 0)
+        int maxIterations = 1000;
+        int iterations = 0;
+        
+        while (_frontier.Count > 0 && iterations < maxIterations)
         {
             Vector3 current = _frontier.Dequeue();
             
@@ -41,7 +48,14 @@ public class DynamicDijkstra : MonoBehaviour
                     _cameFrom[next] = current;
                 }
             }
+            iterations++;
         }
+        if (iterations >= maxIterations)
+        {
+            Debug.Log("Se alcanzó el límite máximo de iteraciones. No se encontró un camino válido.");
+            return;
+        }
+        
         DrawPath(Goal);
     }
 
@@ -63,11 +77,18 @@ public class DynamicDijkstra : MonoBehaviour
     private void DrawPath(Vector3 goal)
     {
         Vector3 current = goal;
-        while (current != Origin)
+        int maxIterations = 1000;
+        int iterations = 0;
+        while (current != Origin && iterations < maxIterations)
         {
             Vector3Int currentInt = new Vector3Int((int) current.x, (int) current.y, (int) current.z);
             pathTileMap.SetTile(currentInt, pathTile);
             current = _cameFrom[current];
+            iterations++;
+        }
+        if (iterations >= maxIterations)
+        {
+            Debug.Log("Se alcanzó el límite máximo de iteraciones. No se grafico un camino válido."); return;
         }
     }
 

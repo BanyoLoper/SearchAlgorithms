@@ -94,5 +94,13 @@ namespace ESarkis
             }
             return false;
         }
+        
+        /// <summary>
+        /// Clear the Priority Queue.
+        /// </summary>
+        public void Clear()
+        {
+            elements.Clear();
+        }
     }
 }
