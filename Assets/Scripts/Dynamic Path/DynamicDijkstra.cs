@@ -50,12 +50,6 @@ public class DynamicDijkstra : MonoBehaviour
             }
             iterations++;
         }
-        if (iterations >= maxIterations)
-        {
-            Debug.Log("Se alcanzó el límite máximo de iteraciones. No se encontró un camino válido.");
-            return;
-        }
-        
         DrawPath(Goal);
     }
 
@@ -85,10 +79,6 @@ public class DynamicDijkstra : MonoBehaviour
             pathTileMap.SetTile(currentInt, pathTile);
             current = _cameFrom[current];
             iterations++;
-        }
-        if (iterations >= maxIterations)
-        {
-            Debug.Log("Se alcanzó el límite máximo de iteraciones. No se grafico un camino válido."); return;
         }
     }
 
