@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Matrix4x4 = UnityEngine.Matrix4x4;
@@ -17,6 +18,7 @@ public class TileSelector : MonoBehaviour
     public FloodFill floodFill;
     public Dijkstra dijkstra;
 
+
     public enum SearchAlgorithm
     {
         FloodFill,
@@ -29,12 +31,14 @@ public class TileSelector : MonoBehaviour
     private Dictionary<Tilemap, Vector3Int> _previousTilePosition = new Dictionary<Tilemap, Vector3Int>();
     private Dictionary<Tilemap, Vector3Int> _origin = new Dictionary<Tilemap, Vector3Int>();
     private Dictionary<Tilemap, Vector3Int> _goal = new Dictionary<Tilemap, Vector3Int>();
+    private Dictionary<Vector3Int, Vector3> _originalOffset = new Dictionary<Vector3Int, Vector3>();
     
     private void Start()
     {
         foreach (var tilemap in tilemaps)
         {
             _previousTilePosition[tilemap] = new Vector3Int(-1, -1, 0);
+            _originalOffset[_previousTilePosition[tilemap]] = Vector3.zero;
         }
     }
 
@@ -59,11 +63,15 @@ public class TileSelector : MonoBehaviour
         {
             if (subTilemap.HasTile(_previousTilePosition[subTilemap]))
             {
-                subTilemap.SetTransformMatrix(_previousTilePosition[subTilemap], Matrix4x4.identity);
+                Vector3 originalOffset = _originalOffset[_previousTilePosition[subTilemap]];
+                subTilemap.SetTransformMatrix(_previousTilePosition[subTilemap],
+                    Matrix4x4.TRS(originalOffset, Quaternion.identity, Vector3.one));
             }
             if (subTilemap.HasTile(tilePosition))
             {
-                subTilemap.SetTransformMatrix(tilePosition, Matrix4x4.TRS(offset, Quaternion.Euler(0, 0, 0), Vector3.one));
+                Vector3 currentOffset = subTilemap.GetTransformMatrix(tilePosition).GetColumn(3);
+                _originalOffset[tilePosition] = currentOffset;
+                subTilemap.SetTransformMatrix(tilePosition, Matrix4x4.TRS(currentOffset + offset, Quaternion.Euler(0, 0, 0), Vector3.one));
             }
             _previousTilePosition[subTilemap] = tilePosition;
         }
