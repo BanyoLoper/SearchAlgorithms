@@ -18,11 +18,17 @@ public class Dijkstra : MonoBehaviour
     public bool earlyExit = false;
     public TextMeshProUGUI costTextPrefab;
     public Camera camera;
-    
+    public Canvas canvas;
+
     private PriorityQueue<Vector3> _frontier = new PriorityQueue<Vector3>();
     private Dictionary<Vector3, Vector3> _cameFrom = new Dictionary<Vector3, Vector3>();
     private Dictionary<Vector3, double> _costSoFar = new Dictionary<Vector3, double>();
+    private RectTransform _canvasRectTransform;
 
+    private void Start()
+    {
+        _canvasRectTransform = canvas.GetComponent<RectTransform>();
+    }
 
     public IEnumerator Dijkstra2D()
     {
@@ -56,24 +62,27 @@ public class Dijkstra : MonoBehaviour
         var nextTile = TileMap.GetTile(new Vector3Int((int) next.x, (int) next.y, (int) next.z));
         double cost = nextTile.name switch
         {
-            "isometric_pixel_0055" => 50,
-            "isometric_pixel_0059" => 40,
+            "isometric_pixel_0055" => 5,
+            "isometric_pixel_0059" => 3,
             "isometric_pixel_0060" => 1,
-            "isometric_pixel_0061" => 5,
-            "isometric_pixel_0062" => 20,
+            "isometric_pixel_0061" => 4,
+            "isometric_pixel_0062" => 2,
             _ => 1
         };
 
-        TextMeshProUGUI costInstance = Instantiate(costTextPrefab);
+        TextMeshProUGUI costInstance = Instantiate(costTextPrefab, canvas.transform, false);
         costInstance.text = cost.ToString();
 
         Vector3 tileWorldPos = TileMap.CellToWorld(new Vector3Int((int)next.x, (int)next.y, (int)next.z));
-        var cellSize = TileMap.cellSize;
-        Vector3 tileScreenPos = camera.WorldToScreenPoint(tileWorldPos + new Vector3(cellSize.x / 2, cellSize.y / 2, 0));
+        Vector3 viewportPos = camera.WorldToViewportPoint(tileWorldPos);
         
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(costInstance.transform.parent.GetComponent<RectTransform>(), 
-            tileScreenPos, camera, out Vector2 localPoint);
-        costInstance.transform.localPosition = localPoint;
+        var sizeDelta = _canvasRectTransform.sizeDelta;
+        Vector2 anchoredPosition = new Vector2(
+            ((sizeDelta.x * viewportPos.x) - (sizeDelta.x * 0.5f)),
+            ((sizeDelta.y * viewportPos.y) - (sizeDelta.y * 0.5f))
+        );
+    
+        costInstance.rectTransform.anchoredPosition = anchoredPosition;
         return cost;
     }
     

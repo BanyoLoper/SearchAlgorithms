@@ -134,6 +134,7 @@ public class TileSelector : MonoBehaviour
             dijkstra.TileMap = tilemap;
             dijkstra.visitedTile = originTile;
             dijkstra.pathTile = goalTile;
+            dijkstra.camera = mainCamera;
             StartCoroutine(dijkstra.Dijkstra2D());
         }   
     }
