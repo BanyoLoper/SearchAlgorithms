@@ -10153,7 +10153,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cbb515b848bab424a976b08933953e21, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10250,7 +10250,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cbb515b848bab424a976b08933953e21, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10397,7 +10397,7 @@ MonoBehaviour:
   - {fileID: 1092001508}
   - {fileID: 1342066917}
   originTile: {fileID: 11400000, guid: e96d337533a3ee44cb105348632dbb69, type: 2}
-  pathTile: {fileID: 11400000, guid: aaa86ba099ef37542aad41513ca0428e, type: 2}
+  pathTile: {fileID: 11400000, guid: 1bc0af43d66140847aba1fa3f93a59b5, type: 2}
   dijkstra: {fileID: 1625864367}
 --- !u!1 &1759123170
 GameObject:
@@ -10435,7 +10435,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.1509434, g: 0.06906373, b: 0.11094681, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -10452,7 +10452,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 3.14
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
