@@ -58,11 +58,12 @@ public class DynamicDijkstra : MonoBehaviour
         var nextTile = TileMap.GetTile(new Vector3Int((int) next.x, (int) next.y, (int) next.z));
         double cost = nextTile.name switch
         {
-            "isometric_pixel_0055" => 5,
-            "isometric_pixel_0059" => 3,
-            "isometric_pixel_0060" => 1,
-            "isometric_pixel_0061" => 4,
-            "isometric_pixel_0062" => 2,
+            "isometric_pixel_0055" => 15,
+            "isometric_pixel_0059" => 10,
+            "isometric_pixel_0061" => 7,
+            "isometric_pixel_0060" => 5,
+            "isometric_pixel_0062" => 3,
+            "isometric_pixel_0053" => 1,
             _ => 1
         };
         return cost;
